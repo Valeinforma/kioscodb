@@ -3,11 +3,8 @@ $db_host = "localhost";
 $db_user = "root";
 $db_pass = "";
 $db_name = "kioscodb";
+//quitamos cadena de conexion
 
-//$db_host = "192.185.194.188";
-//$db_user = "d26com_usr_general";
-//$db_pass = "Isp203040";
-//$db_name = "d26com_db_valentino";
 
 $cnn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
