@@ -25,6 +25,33 @@ if (isset($_GET['id'])) {
 <div class="container pt-4">
     <form method="POST">
         <input type="hidden" name="IdDetalle" value="<?php echo $campos['IdDetalle']; ?>">
+        
+        <div class="mb-3">
+            <label>Venta</label>
+            <select name="IdVenta" class="form-control" required>
+                <?php
+                $resV = mysqli_query($cnn, "SELECT id_venta FROM ventas");
+                while ($v = mysqli_fetch_assoc($resV)) {
+                    $selected = (isset($campos['IdVenta']) && $v['id_venta'] == $campos['IdVenta']) ? 'selected' : '';
+                    echo "<option value='{$v['id_venta']}' $selected>{$v['id_venta']}</option>";
+                }
+                ?>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Producto</label>
+            <select name="IdProducto" class="form-control" required>
+                <?php
+                $resP = mysqli_query($cnn, "SELECT IdProducto, Nombre FROM productos");
+                while ($p = mysqli_fetch_assoc($resP)) {
+                    $selected = (isset($campos['IdProducto']) && $p['IdProducto'] == $campos['IdProducto']) ? 'selected' : '';
+                    echo "<option value='{$p['IdProducto']}' $selected>{$p['Nombre']}</option>";
+                }
+                ?>
+            </select>
+        </div>
+
         <div class="mb-3"><label>Cantidad</label><input type="number" name="Cantidad" class="form-control" value="<?php echo $campos['Cantidad']; ?>" required></div>
         <div class="mb-3"><label>Precio Unitario</label><input type="number" step="0.01" name="PrecioUnitario" class="form-control" value="<?php echo $campos['PrecioUnitario']; ?>" required></div>
         <div class="mb-3"><label>Subtotal</label><input type="number" step="0.01" name="Subtotal" class="form-control" value="<?php echo $campos['Subtotal']; ?>" required></div>

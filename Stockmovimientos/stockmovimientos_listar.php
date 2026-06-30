@@ -11,16 +11,15 @@ if (isset($_GET['ideliminar'])) {
     </div>
     <table class="table table-striped">
         <thead class="table-dark">
-            <tr><th>ID</th><th>Producto</th><th>Tipo</th><th>Cantidad</th><th>Fecha</th><th>Acciones</th></tr>
+            <tr><th>Producto</th><th>Tipo</th><th>Cantidad</th><th>Fecha</th><th>Acciones</th></tr>
         </thead>
         <tbody>
             <?php
-            $res = mysqli_query($cnn, "SELECT * FROM stockmovimientos");
+            $res = mysqli_query($cnn, "SELECT sm.IdMovimientoStock, p.Nombre as ProductoNombre, sm.Tipo, sm.Cantidad, sm.Fecha FROM stockmovimientos sm INNER JOIN productos p ON sm.IdProducto = p.IdProducto");
             while ($row = mysqli_fetch_assoc($res)) {
             ?>
             <tr>
-                <td><?php echo $row['IdMovimientoStock']; ?></td>
-                <td><?php echo $row['IdProducto']; ?></td>
+                <td><?php echo escaparTexto($row['ProductoNombre']); ?></td>
                 <td><?php echo escaparTexto($row['Tipo']); ?></td>
                 <td><?php echo $row['Cantidad']; ?></td>
                 <td><?php echo $row['Fecha']; ?></td>

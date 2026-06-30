@@ -11,16 +11,18 @@ if (isset($_GET['ideliminar'])) {
     </div>
     <table class="table table-striped">
         <thead class="table-dark">
-            <tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr>
+            <tr><th>ID</th><th>Nombre</th><th>Categoría</th><th>Proveedor</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr>
         </thead>
         <tbody>
             <?php
-            $res = mysqli_query($cnn, "SELECT * FROM productos");
+            $res = mysqli_query($cnn, "SELECT p.*, c.Nombre as CategoriaNombre, pr.Nombre as ProveedorNombre FROM productos p LEFT JOIN categorias c ON p.IdCategoria = c.IdCategoria LEFT JOIN proveedores pr ON p.IdProveedor = pr.IdProveedor");
             while ($row = mysqli_fetch_assoc($res)) {
             ?>
             <tr>
                 <td><?php echo $row['IdProducto']; ?></td>
                 <td><?php echo escaparTexto($row['Nombre']); ?></td>
+                <td><?php echo escaparTexto($row['CategoriaNombre'] ?? 'Sin categoría'); ?></td>
+                <td><?php echo escaparTexto($row['ProveedorNombre'] ?? 'Sin proveedor'); ?></td>
                 <td>$<?php echo $row['Precio']; ?></td>
                 <td><?php echo $row['Stock']; ?></td>
                 <td>

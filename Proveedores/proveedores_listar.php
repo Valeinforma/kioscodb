@@ -22,12 +22,19 @@ if (isset($_GET['ideliminar'])) {
                         <th>Nombre</th>
                         <th>Teléfono</th>
                         <th>Email</th>
+                        <th>Producto</th>
+                        <th>Categoría</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT * FROM proveedores";
+                    // Usamos JOIN para obtener la relación completa
+                    $sql = "SELECT pr.*, p.Nombre as Producto, c.Nombre as Categoria 
+                            FROM proveedores pr
+                            LEFT JOIN productos p ON pr.IdProveedor = p.IdProveedor
+                            LEFT JOIN categorias c ON p.IdCategoria = c.IdCategoria
+                            ORDER BY pr.IdProveedor";
                     $result = mysqli_query($cnn, $sql);
 
                     if (mysqli_num_rows($result) > 0) {
@@ -38,6 +45,8 @@ if (isset($_GET['ideliminar'])) {
                                 <td><?php echo escaparTexto($row['Nombre']); ?></td>
                                 <td><?php echo escaparTexto($row['Telefono']); ?></td>
                                 <td><?php echo escaparTexto($row['Email']); ?></td>
+                                <td><?php echo escaparTexto($row['Producto'] ?? '-'); ?></td>
+                                <td><?php echo escaparTexto($row['Categoria'] ?? '-'); ?></td>
                                 <td>
                                     <a href='index.php?seccion=proveedores&accion=modificar&id=<?php echo $row['IdProveedor']; ?>' class='btn btn-sm btn-primary'>Editar</a>
                                     <a href='index.php?seccion=proveedores&accion=listar&ideliminar=<?php echo $row['IdProveedor']; ?>' class='btn btn-sm btn-danger' onclick='mostrarConfirmacion(event)'>Eliminar</a>
@@ -46,7 +55,7 @@ if (isset($_GET['ideliminar'])) {
                     <?php
                         }
                     } else {
-                        echo '<tr><td colspan="5" class="text-center">No hay registros</td></tr>';
+                        echo '<tr><td colspan="7" class="text-center">No hay registros</td></tr>';
                     }
                     ?>
                 </tbody>

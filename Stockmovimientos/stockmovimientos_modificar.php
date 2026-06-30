@@ -17,13 +17,25 @@ if (isset($_POST['btnGuardar'])) {
 }
 
 if (isset($_GET['id'])) {
-    $res = mysqli_query($cnn, "SELECT * FROM stockmovimiento WHERE IdMovimientoStock=".intval($_GET['id']));
+    $res = mysqli_query($cnn, "SELECT * FROM stockmovimientos WHERE IdMovimientoStock=".intval($_GET['id']));
     $campos = mysqli_fetch_assoc($res);
 }
 ?>
 <div class="container pt-4">
     <form method="POST">
         <input type="hidden" name="IdMovimientoStock" value="<?php echo $campos['IdMovimientoStock']; ?>">
+        <div class="mb-3">
+            <label>Producto</label>
+            <select name="IdProducto" class="form-control" required>
+                <?php
+                $resProd = mysqli_query($cnn, "SELECT IdProducto, Nombre FROM productos");
+                while ($p = mysqli_fetch_assoc($resProd)) {
+                    $selected = ($p['IdProducto'] == $campos['IdProducto']) ? 'selected' : '';
+                    echo "<option value='{$p['IdProducto']}' $selected>{$p['Nombre']}</option>";
+                }
+                ?>
+            </select>
+        </div>
         <div class="mb-3"><label>Tipo</label><input type="text" name="Tipo" class="form-control" value="<?php echo escaparTexto($campos['Tipo']); ?>" required></div>
         <div class="mb-3"><label>Cantidad</label><input type="number" name="Cantidad" class="form-control" value="<?php echo $campos['Cantidad']; ?>" required></div>
         <div class="mb-3"><label>Fecha</label><input type="datetime-local" name="Fecha" class="form-control" value="<?php echo str_replace(' ', 'T', $campos['Fecha']); ?>" required></div>

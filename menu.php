@@ -13,7 +13,8 @@
         <li><a href="index.php?seccion=productos&accion=listar" class="nav-link text-white"><i class="fas fa-box me-2"></i>Productos</a></li>
         <li><a href="index.php?seccion=ventas&accion=listar" class="nav-link text-white"><i class="fas fa-shopping-cart me-2"></i>Ventas</a></li>
         <li><a href="index.php?seccion=detalleventas&accion=listar" class="nav-link text-white"><i class="fas fa-list me-2"></i>Detalle Ventas</a></li>
-        <li><a href="index.php?seccion=stockmovimientos&accion=listar" class="nav-link text-white"><i class="fas fa-exchange-alt me-2"></i>Stock Mov.</a></li>
+        <li><a href="index.php?seccion=usuarios&accion=listar" class="nav-link text-white"><i class="fas fa-users me-2"></i>Usuarios</a></li>
+        <li><a href="index.php?seccion=cajas&accion=listar" class="nav-link text-white"><i class="fas fa-box-open me-2"></i>Cajas</a></li>
         <li><a href="index.php?seccion=movimientoscaja&accion=listar" class="nav-link text-white"><i class="fas fa-cash-register me-2"></i>Caja Mov.</a></li>
     </ul>
     <hr>
